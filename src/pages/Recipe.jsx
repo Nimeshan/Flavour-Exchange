@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRecipeDetails } from '../store/slices/recipeSlice';
+import { FaClock, FaStar } from 'react-icons/fa';
 
 export default function Recipe() {
   const { id } = useParams();
@@ -12,41 +13,57 @@ export default function Recipe() {
     dispatch(fetchRecipeDetails(id));
   }, [dispatch, id]);
 
-  if (status === 'loading') return <div className="page">Loading...</div>;
-  if (status === 'failed') return <div className="page">Error loading recipe</div>;
+  if (status === 'loading') return <div className="page loading">Loading recipe details...</div>;
+  if (status === 'failed') return <div className="page error">Error loading recipe</div>;
 
   return (
     <div className="page recipe-details">
       {currentRecipe && (
         <>
           <div className="recipe-header">
-            <h2>{currentRecipe.title}</h2>
-            <img src={currentRecipe.image} alt={currentRecipe.title} />
+            <h1>{currentRecipe.title}</h1>
+            <div className="image-container">
+              <img 
+                src={currentRecipe.image} 
+                alt={currentRecipe.title} 
+                className="recipe-image"
+              />
+            </div>
           </div>
           
-          <div className="meta">
-            <p>⏱ {currentRecipe.cookingTime} minutes</p>
-            <div className="rating">
-              {[...Array(5)].map((_, i) => (
-                <span key={i} className={i < Math.round(currentRecipe.rating) ? 'filled' : ''}>★</span>
-              ))}
+          <div className="recipe-meta">
+            <div className="meta-item">
+              <FaClock className="meta-icon" />
+              <span>{currentRecipe.cookingTime} minutes</span>
+            </div>
+            <div className="meta-item">
+              <FaStar className="meta-icon" />
+              <span>{currentRecipe.rating.toFixed(1)}/5</span>
             </div>
           </div>
 
-          <div className="ingredients">
-            <h3>Ingredients</h3>
-            <ul>
+          <div className="detail-section">
+            <h2 className="section-title">Ingredients</h2>
+            <ul className="ingredients-list">
               {currentRecipe.ingredients.map((item, i) => (
-                <li key={i}>{item}</li>
+                <li key={i} className="ingredient-item">
+                  <input type="checkbox" id={`ingredient-${i}`} />
+                  <label htmlFor={`ingredient-${i}`}>{item}</label>
+                </li>
               ))}
             </ul>
           </div>
 
-          <div className="instructions">
-            <h3>Instructions</h3>
-            <div className="steps">
+          <div className="detail-section">
+            <h2 className="section-title">Instructions</h2>
+            <div className="instructions">
               {currentRecipe.instructions.split('\n').map((step, i) => (
-                <p key={i}>{step}</p>
+                step.trim() && (
+                  <div key={i} className="instruction-step">
+                    <div className="step-number">{i + 1}</div>
+                    <p>{step}</p>
+                  </div>
+                )
               ))}
             </div>
           </div>
