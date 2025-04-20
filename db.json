@@ -37,6 +37,7 @@
     {
       "id": 1,
       "username": "chef1",
+      "email": "chef1@gmail.com",
       "password": "pass1",
       "savedRecipes": [2]
     }

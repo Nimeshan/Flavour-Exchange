@@ -56,10 +56,8 @@ export default function Register() {
     setIsSubmitting(true);
 
     try {
-      // Mock API call - replace with your actual registration endpoint
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Mock response
       const mockUser = {
         id: Date.now(),
         name: formData.name,
@@ -87,7 +85,6 @@ export default function Register() {
       [name]: value
     });
     
-    // Clear error when user types
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -112,9 +109,6 @@ export default function Register() {
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className={`form-group ${errors.name ? 'error' : ''}`}>
-            <div className="input-icon">
-              <FaUser />
-            </div>
             <input
               type="text"
               name="name"
@@ -126,9 +120,6 @@ export default function Register() {
           </div>
 
           <div className={`form-group ${errors.email ? 'error' : ''}`}>
-            <div className="input-icon">
-              <FaEnvelope />
-            </div>
             <input
               type="email"
               name="email"
@@ -140,9 +131,6 @@ export default function Register() {
           </div>
 
           <div className={`form-group ${errors.password ? 'error' : ''}`}>
-            <div className="input-icon">
-              <FaLock />
-            </div>
             <input
               type="password"
               name="password"
@@ -154,9 +142,6 @@ export default function Register() {
           </div>
 
           <div className={`form-group ${errors.confirmPassword ? 'error' : ''}`}>
-            <div className="input-icon">
-              <FaLock />
-            </div>
             <input
               type="password"
               name="confirmPassword"
