@@ -31,6 +31,21 @@
       ],
       "instructions": "1. Chop all vegetables\n2. Heat oil in wok\n3. Stir-fry veggies for 5 mins\n4. Add sauce and cook 2 more mins",
       "author": "chef2"
+    },
+    {
+      "id": "9f97",
+      "title": "Meemaws Brisket",
+      "cookingTime": 142,
+      "ingredients": [
+        "Beef",
+        "Beer",
+        "Oil",
+        "Soya Sauce",
+        "Ketchup"
+      ],
+      "instructions": "Mix Everything, and put it to the grill and roast it for 15 minutes.",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDprV9UMYupK89AMswpJNh9qcTErkloZT_xg&s",
+      "rating": 0
     }
   ],
   "users": [
@@ -39,7 +54,9 @@
       "username": "chef1",
       "email": "chef1@gmail.com",
       "password": "pass1",
-      "savedRecipes": [2]
+      "savedRecipes": [
+        2
+      ]
     }
   ]
 }

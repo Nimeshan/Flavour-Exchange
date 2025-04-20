@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createRecipe } from '../store/slices/recipeSlice';
+import { FaPlusCircle, FaClock, FaListUl, FaBookOpen, FaImage } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 export default function Create() {
   const [formData, setFormData] = useState({
@@ -11,75 +13,134 @@ export default function Create() {
     instructions: '',
     image: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newRecipe = {
-      ...formData,
-      cookingTime: parseInt(formData.cookingTime),
-      ingredients: formData.ingredients.split(',').map(i => i.trim()),
-      rating: 0
-    };
-    dispatch(createRecipe(newRecipe));
-    navigate('/');
+    setIsSubmitting(true);
+    
+    try {
+      const newRecipe = {
+        ...formData,
+        cookingTime: parseInt(formData.cookingTime),
+        ingredients: formData.ingredients.split(',').map(i => i.trim()),
+        rating: 0
+      };
+      
+      await dispatch(createRecipe(newRecipe)).unwrap();
+      navigate('/');
+    } catch (error) {
+      console.error('Failed to create recipe:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="page create">
-      <form onSubmit={handleSubmit}>
-        <h2>Add New Recipe</h2>
-        
-        <label>
-          <span>Recipe Title:</span>
-          <input
-            type="text"
-            value={formData.title}
-            onChange={(e) => setFormData({...formData, title: e.target.value})}
-            required
-          />
-        </label>
+    <div className="create-page">
+      <motion.div 
+        className="create-container"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="create-header">
+          <FaPlusCircle className="header-icon" />
+          <h2>Create New Recipe</h2>
+          <p>Share your culinary masterpiece with the community</p>
+        </div>
 
-        <label>
-          <span>Recipe Image URL:</span>
-          <input
-            type="text"
-            value={formData.image}
-            onChange={(e) => setFormData({...formData, image: e.target.value})}
-          />
-        </label>
+        <form onSubmit={handleSubmit} className="recipe-form">
+          <div className="form-section">
+            <div className="form-group">
+              <label>
+                <span>Recipe Title</span>
+                <div className="input-with-icon">
+                  <input
+                    type="text"
+                    placeholder="e.g. Grandma's Apple Pie"
+                    value={formData.title}
+                    onChange={(e) => setFormData({...formData, title: e.target.value})}
+                    required
+                  />
+                </div>
+              </label>
+            </div>
 
-        <label>
-          <span>Cooking Time (minutes):</span>
-          <input
-            type="number"
-            value={formData.cookingTime}
-            onChange={(e) => setFormData({...formData, cookingTime: e.target.value})}
-            required
-          />
-        </label>
+            <div className="form-group">
+              <label>
+                <span>Image URL</span>
+                <div className="input-with-icon">
+                  <input
+                    type="text"
+                    placeholder="Paste image URL here"
+                    value={formData.image}
+                    onChange={(e) => setFormData({...formData, image: e.target.value})}
+                  />
+                </div>
+              </label>
+            </div>
 
-        <label>
-          <span>Ingredients (comma separated):</span>
-          <textarea
-            value={formData.ingredients}
-            onChange={(e) => setFormData({...formData, ingredients: e.target.value})}
-            required
-          />
-        </label>
+            <div className="form-group">
+              <label>
+                <span>Cooking Time (minutes)</span>
+                <div className="input-with-icon">
+                  <input
+                    type="number"
+                    placeholder="e.g. 30"
+                    min="1"
+                    value={formData.cookingTime}
+                    onChange={(e) => setFormData({...formData, cookingTime: e.target.value})}
+                    required
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
 
-        <label>
-          <span>Instructions:</span>
-          <textarea
-            value={formData.instructions}
-            onChange={(e) => setFormData({...formData, instructions: e.target.value})}
-            required
-          />
-        </label>
+          <div className="form-section">
+            <div className="form-group">
+              <label>
+                <span>Ingredients</span>
+                <div className="input-with-icon">
+                  <textarea
+                    placeholder="Enter ingredients separated by commas (e.g. flour, sugar, eggs)"
+                    value={formData.ingredients}
+                    onChange={(e) => setFormData({...formData, ingredients: e.target.value})}
+                    required
+                    rows="4"
+                  />
+                </div>
+              </label>
+            </div>
 
-        <button type="submit">Create Recipe</button>
-      </form>
+            <div className="form-group">
+              <label>
+                <span>Instructions</span>
+                <textarea
+                  placeholder="Provide step-by-step instructions..."
+                  value={formData.instructions}
+                  onChange={(e) => setFormData({...formData, instructions: e.target.value})}
+                  required
+                  rows="6"
+                />
+              </label>
+            </div>
+          </div>
+
+          <motion.button
+            type="submit"
+            className="submit-btn"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Creating Recipe...' : 'Publish Recipe'}
+          </motion.button>
+        </form>
+      </motion.div>
     </div>
   );
 }
