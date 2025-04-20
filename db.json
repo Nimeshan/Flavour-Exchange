@@ -1,0 +1,44 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Spaghetti Carbonara",
+      "cookingTime": 20,
+      "rating": 4.5,
+      "image": "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb",
+      "ingredients": [
+        "200g spaghetti",
+        "2 large eggs",
+        "100g pancetta",
+        "50g parmesan",
+        "Black pepper"
+      ],
+      "instructions": "1. Cook pasta according to package\n2. Fry pancetta until crispy\n3. Mix eggs and cheese in a bowl\n4. Combine everything while hot",
+      "author": "chef1"
+    },
+    {
+      "id": 2,
+      "title": "Vegetable Stir Fry",
+      "cookingTime": 15,
+      "rating": 4.2,
+      "image": "https://images.unsplash.com/photo-1543351611-58f69d7c1781",
+      "ingredients": [
+        "1 bell pepper",
+        "1 carrot",
+        "100g broccoli",
+        "2 tbsp soy sauce",
+        "1 tbsp sesame oil"
+      ],
+      "instructions": "1. Chop all vegetables\n2. Heat oil in wok\n3. Stir-fry veggies for 5 mins\n4. Add sauce and cook 2 more mins",
+      "author": "chef2"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "chef1",
+      "password": "pass1",
+      "savedRecipes": [2]
+    }
+  ]
+}
