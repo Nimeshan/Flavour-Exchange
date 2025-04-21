@@ -43,16 +43,23 @@ export default function Recipe() {
           </div>
 
           <div className="detail-section">
-            <h2 className="section-title">Ingredients</h2>
-            <ul className="ingredients-list">
-              {currentRecipe.ingredients.map((item, i) => (
-                <li key={i} className="ingredient-item">
-                  <input type="checkbox" id={`ingredient-${i}`} />
-                  <label htmlFor={`ingredient-${i}`}>{item}</label>
-                </li>
-              ))}
-            </ul>
-          </div>
+  <h2 className="section-title">Ingredients</h2>
+  <ul className="ingredients-list">
+    {currentRecipe.ingredients.map((item, i) => (
+      <li key={i} className="ingredient-item">
+        <input 
+          type="checkbox" 
+          id={`ingredient-${i}`}
+          className="ingredient-checkbox"
+        />
+        <label htmlFor={`ingredient-${i}`}>
+          <span className="custom-checkbox"></span>
+          {item}
+        </label>
+      </li>
+    ))}
+  </ul>
+</div>
 
           <div className="detail-section">
             <h2 className="section-title">Instructions</h2>

@@ -340,6 +340,7 @@ body {
 .ingredients-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .ingredients-grid {
@@ -351,8 +352,8 @@ body {
 .ingredient-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0;
+  gap: 10px;
+  margin-bottom: 8px;
 }
 
 .ingredient-item:hover {
@@ -361,6 +362,38 @@ body {
 
 .ingredient-item input[type="checkbox"] {
   accent-color: var(--primary);
+  margin: 0;
+}
+
+.ingredient-item label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ingredient-checkbox:checked + label .custom-checkbox::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: green;
+}
+
+.ingredient-checkbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.custom-checkbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 10px;
+  vertical-align: middle;
+  position: relative;
 }
 
 .instruction-step {
